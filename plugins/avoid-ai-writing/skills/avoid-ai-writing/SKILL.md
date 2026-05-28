@@ -1,7 +1,7 @@
 ---
 name: avoid-ai-writing
 description: Audit and rewrite content to remove AI writing patterns ("AI-isms"). Use this skill when asked to "remove AI-isms," "clean up AI writing," "edit writing for AI patterns," "audit writing for AI tells," or "make this sound less like AI." Supports a detect-only mode, an edit-in-place mode for files, an optional voice profile (casual / professional / technical / warm / blunt), and an iterate-to-convergence pass.
-version: 3.7.0
+version: 3.7.1
 license: MIT
 compatibility: Any AI coding assistant that supports agentskills.io SKILL.md format (Claude Code, Cursor, VS Code Copilot, Hermes Agent, OpenHands, etc.) or OpenClaw. No external tools or APIs required.
 metadata:
@@ -72,7 +72,7 @@ In **edit** mode, your job is to:
 - **Bold overuse**: Strip bold from most phrases. One bolded phrase per major section at most, or none. If something's important enough to bold, restructure the sentence to lead with it instead.
 - **Emoji in headers**: Remove entirely. No `## 🚀 What This Means`. Exception: social posts may use one or two emoji sparingly — at the end of a line, never mid-sentence.
 - **Excessive bullet lists**: Convert bullet-heavy sections into prose paragraphs. Bullets only for genuinely list-like content (feature comparisons, step-by-step instructions, API parameters).
-- **Mixed straight/curly punctuation**: Curly quotes and apostrophes (' ' " ") mixed with straight ones (' " ) in the same document signal text pasted from a chat UI into a plain-text editor that left some characters un-normalized. Pick one convention and apply it throughout — straight in Markdown and code contexts, curly in prose. The inconsistency is the tell, not either style on its own. Adapted from Wikipedia's "Signs of AI writing."
+- **Curly quotation marks (“ ” ‘ ’) and curly apostrophes**: ChatGPT and several other chat UIs emit Unicode curly quotes (U+201C / U+201D for doubles, U+2018 / U+2019 for singles) by default, even when the surrounding text is plain ASCII. Most human writers type straight quotes (`"` and `'`) unless they're publishing through a CMS that auto-substitutes them. A document that's otherwise ASCII but contains curly quotes is a strong copy-paste-from-chat signal. Replace with straight quotes. Curly and straight quotes mixed within one document are an even stronger tell — the inconsistency itself gives it away. Exception: deliberate typography in finished publications, ebooks, or print proofs where curly quotes are the house style — in those contexts they're correct and should stay. Carve-out also applies to French guillemets (« »), German low-9 quotes („ "), and other locale-correct punctuation; the flag is specifically the unexplained presence of U.S. English curly quotes in otherwise plain text.
 
 ### Sentence structure
 - **"It's not X — it's Y" / "This isn't about X, it's about Y"**: Rewrite as a direct positive statement. Max one per piece, and only if it serves the argument.
