@@ -168,6 +168,18 @@ test('hashtag-stuff does not fire on prose with 2-3 hashtags', () => {
   assert.ok(!types.has('hashtag-stuff'), 'should not flag 2 hashtags as hashtag-stuff');
 });
 
+test('"quietly" clusters with another Tier 2 word flags tier2', () => {
+  // "quietly" alone in a paragraph should not fire; paired with another
+  // Tier 2 word in the same paragraph it should produce a tier2 issue.
+  const single = AIDetector.analyzeText('The team quietly shipped the update last week without any announcement.');
+  const singleTypes = new Set(single.issues.map((i) => i.type));
+  assert.ok(!singleTypes.has('tier2'), 'single "quietly" should not fire tier2 on its own');
+
+  const clustered = AIDetector.analyzeText('The team quietly worked to harness new opportunities, building the platform without any announcement.');
+  const clusteredTypes = new Set(clustered.issues.map((i) => i.type));
+  assert.ok(clusteredTypes.has('tier2'), 'expected tier2 flag when "quietly" clusters with another Tier 2 word');
+});
+
 test('bullet-np-list does not fire on prose containing short verb-form bullets', () => {
   // Genuine list items with finite verbs should not trip the bare-NP
   // detector. The verb-token guard is what keeps todo lists, changelog
