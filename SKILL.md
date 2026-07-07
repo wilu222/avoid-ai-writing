@@ -1,7 +1,7 @@
 ---
 name: avoid-ai-writing
 description: Audit and rewrite content to remove AI writing patterns ("AI-isms"). Use this skill when asked to "remove AI-isms," "clean up AI writing," "edit writing for AI patterns," "audit writing for AI tells," or "make this sound less like AI." Supports a detect-only mode, an edit-in-place mode for files, an optional voice profile (casual / professional / technical / warm / blunt), and an iterate-to-convergence pass.
-version: 3.11.0
+version: 3.12.0
 license: MIT
 compatibility: Any AI coding assistant that supports agentskills.io SKILL.md format (Claude Code, Cursor, VS Code Copilot, Hermes Agent, OpenHands, etc.) or OpenClaw. No external tools or APIs required.
 metadata:
@@ -198,6 +198,7 @@ These words are legitimate on their own. When two or more show up together, the 
 | nascent | new, early-stage, emerging |
 | quintessential | typical, classic, defining |
 | overarching | main, central, broad |
+| quietly | cut, or name the concrete contrast |
 | underpinning / underpinnings | basis, foundation, what supports |
 
 #### Tier 3 — Flag only at high density

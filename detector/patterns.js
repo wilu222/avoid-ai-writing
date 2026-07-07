@@ -187,6 +187,7 @@ const AIDetector = (() => {
     'nascent': 'new, early-stage',
     'quintessential': 'typical, classic, defining',
     'overarching': 'main, central, broad',
+    'quietly': 'cut, or name the concrete contrast',
     'underpinning': 'basis, foundation',
     'underpinnings': 'basis, foundations',
     'paradigm-shifting': 'describe what shifted',

@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 ---
 
+## [3.12.0] — 2026-07-06
+
+### Added
+- **"quietly" to Tier 2 word table** — AI uses "quietly" as a significance adverb to imply underdog credibility without evidence: "quietly building," "quietly reshaping," "quietly becoming." On its own in a sentence it's fine; in a paragraph already leaning on other Tier 2 words it's a cluster tell. Added to both the SKILL.md Tier 2 table and the detector engine. The detector fires when "quietly" appears alongside one other Tier 2 word in the same paragraph. Replacement: cut the adverb, or name the concrete contrast. Source: tropes.fyi/tropes ("Quietly" and Other Magic Adverbs).
+
+---
+
 ## [3.11.0] — 2026-07-05
 
 ### Changed
