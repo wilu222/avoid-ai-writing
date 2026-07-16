@@ -215,6 +215,11 @@ test('"load-bearing" (metaphor) flags tier1; construction nouns exempt', () => {
     // Optional adjective between `load-bearing` and the structural noun.
     'The crew removed a load-bearing structural wall during the kitchen renovation project.',
     'They reinforced the load-bearing exterior wall before pouring the new concrete footing.',
+    // Unhyphenated "load bearing" is ordinary English: `bearing` as a
+    // participle, not a compound modifier. The tell is always hyphenated.
+    'The heavy load bearing down on the old bridge finally cracked the concrete support.',
+    'Engineers reduced the load bearing on the rear axle by shifting the cargo forward.',
+    'You could feel the load bearing down on the whole team that entire quarter.',
   ];
   for (const text of literals) {
     const { hits } = lbHits(text);
