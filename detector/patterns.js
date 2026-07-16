@@ -143,7 +143,15 @@ const AIDetector = (() => {
     { pattern: /\bascertain(?:s|ing|ed)?\b/gi, replace: 'find out, determine' },
     { pattern: /\bendeavou?r(?:s|ing|ed)?\b/gi, replace: 'effort, attempt, try' },
     { pattern: /\bunderscor(?:es|ing|ed)\b/gi, replace: 'highlights, shows' },
-    { pattern: /\bload[- ]bearing\b(?!\s+(?:walls?|beams?|columns?|joists?|truss(?:es)?|members?|footings?|slabs?)\b)/gi, replace: 'essential, critical, or say what breaks if you remove it' },
+    // Construction carve-out: exempt attributive `load-bearing` before a literal
+    // structural noun, with one optional material/position adjective in between
+    // ("load-bearing structural wall"). The noun list is deliberately limited to
+    // unambiguously physical nouns — abstract-capable ones (structure, element,
+    // frame, foundation) are omitted so the metaphor still fires on "the
+    // load-bearing structure of the argument". Predicative use ("the wall is
+    // load-bearing") is NOT exempt: the tell lives in the subject, which a
+    // lookahead cannot reach. See issue #56.
+    { pattern: /\bload[- ]bearing\b(?!\s+(?:(?:structural|exterior|interior|internal|external|concrete|steel|timber|wooden|brick|masonry|perimeter|basement|main|primary|existing|original)\s+)?(?:walls?|beams?|columns?|joists?|truss(?:es)?|members?|footings?|slabs?|studs?|partitions?|masonry|lintels?|piers?|rafters?|girders?|capacity|capacities)\b)/gi, replace: 'essential, critical, or say what breaks if you remove it' },
   ];
 
   // ─── Tier 2: Flag in clusters (2+ per paragraph) ──────────────────

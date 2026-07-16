@@ -157,7 +157,7 @@ Words are organized into three tiers based on how reliably they signal AI-genera
 | embrace (metaphor) | adopt, accept, use, switch to |
 | load-bearing *(metaphor)* | essential, critical, necessary — or say what breaks if you remove it |
 
-**Construction carve-out:** `load-bearing` before literal structural nouns (`wall`, `beam`, `column`, `joist`, `truss`, `member`, `footing`, `slab`) is standard building terminology — don't flag.
+**Construction carve-out:** `load-bearing` before a literal structural noun (`wall`, `beam`, `column`, `joist`, `truss`, `member`, `footing`, `slab`, `stud`, `partition`, `masonry`, `lintel`, `pier`, `rafter`, `girder`, `capacity`), optionally with one material or position adjective in between (`load-bearing structural wall`), is standard building terminology — don't flag. Abstract-capable nouns (`structure`, `element`, `frame`, `foundation`) are excluded on purpose, so "the load-bearing structure of his argument" still flags. Known gap: predicative use ("the wall is load-bearing") still flags — see issue #56.
 
 #### Tier 2 — Flag when 2+ appear in the same paragraph
 

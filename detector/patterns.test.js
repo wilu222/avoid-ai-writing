@@ -169,19 +169,57 @@ test('hashtag-stuff does not fire on prose with 2-3 hashtags', () => {
 });
 
 test('"load-bearing" (metaphor) flags tier1; construction nouns exempt', () => {
-  const metaphor = AIDetector.analyzeText('The load-bearing assumption here is that users will migrate voluntarily.');
-  const metaphorTypes = new Set(metaphor.issues.map((i) => i.type));
-  const metaphorHits = metaphor.issues.filter((i) => /load[- ]bearing/i.test(i.text));
-  assert.ok(metaphorTypes.has('tier1'), 'expected tier1 flag for metaphorical load-bearing');
-  assert.ok(metaphorHits.length > 0, 'expected a load-bearing tier1 hit');
+  // Every fixture is padded past the wordCount < 10 gate in analyzeText, which
+  // returns zero issues before any pattern runs. A shorter fixture asserts
+  // nothing: it would pass with the carve-out deleted entirely.
+  const lbHits = (text) => {
+    const r = AIDetector.analyzeText(text);
+    assert.ok(!r.tooShort, `fixture must clear the length gate (wordCount >= 10): ${text}`);
+    return { hits: r.issues.filter((i) => /load[- ]bearing/i.test(i.text)), types: new Set(r.issues.map((i) => i.type)) };
+  };
 
-  const wall = AIDetector.analyzeText('Install a load-bearing wall between the kitchen and the garage.');
-  const wallHits = wall.issues.filter((i) => /load[- ]bearing/i.test(i.text));
-  assert.equal(wallHits.length, 0, 'load-bearing wall should not fire tier1');
+  const metaphors = [
+    'The load-bearing assumption here is that users will migrate to the platform voluntarily.',
+    'That load-bearing claim never gets defended anywhere in the entire twelve page document.',
+    'The whole load-bearing invariant rests on a cache that nobody has actually measured.',
+    // Abstract-capable nouns are deliberately absent from the carve-out so the
+    // metaphor still fires on them.
+    'The load-bearing structure of his argument collapses once you check the second citation.',
+  ];
+  for (const text of metaphors) {
+    const { hits, types } = lbHits(text);
+    assert.ok(types.has('tier1'), `expected tier1 flag for metaphor: ${text}`);
+    assert.ok(hits.length > 0, `expected a load-bearing tier1 hit: ${text}`);
+  }
 
-  const beam = AIDetector.analyzeText('The steel load-bearing beam spans 12 feet.');
-  const beamHits = beam.issues.filter((i) => /load[- ]bearing/i.test(i.text));
-  assert.equal(beamHits.length, 0, 'load-bearing beam should not fire tier1');
+  // One fixture per carve-out noun: dropping any single noun from the lookahead
+  // must fail this test. Previously only `wall` was pinned.
+  const literals = [
+    'Install a load-bearing wall between the kitchen and the garage today.',
+    'The steel load-bearing beam spans twelve feet across the finished basement ceiling.',
+    'The concrete load-bearing column in the parking garage was inspected last week.',
+    'Every load-bearing joist under the second floor was replaced during the remodel.',
+    'The roof load-bearing truss was engineered to handle heavy snow load safely.',
+    'These load-bearing trusses were installed by the framing crew earlier this spring.',
+    'Each load-bearing member of the frame must meet the local building code.',
+    'The load-bearing footing was poured before the inspector arrived on site Monday.',
+    'The load-bearing slab under the garage cracked during the cold winter months.',
+    'The load-bearing stud spacing must comply with local residential building code requirements.',
+    'The old load-bearing partition was replaced with a steel beam last summer.',
+    'The load-bearing masonry needs repair before the inspector will sign off here.',
+    'The load-bearing lintel above the window was cracked and needed full replacement.',
+    'Each load-bearing pier under the deck was set below the frost line.',
+    'The load-bearing rafter was replaced after the storm damaged the roof badly.',
+    'The load-bearing girder running under the floor was inspected and approved today.',
+    'The engineer calculated the load-bearing capacity of the floor before approving the plan.',
+    // Optional adjective between `load-bearing` and the structural noun.
+    'The crew removed a load-bearing structural wall during the kitchen renovation project.',
+    'They reinforced the load-bearing exterior wall before pouring the new concrete footing.',
+  ];
+  for (const text of literals) {
+    const { hits } = lbHits(text);
+    assert.equal(hits.length, 0, `literal construction use should not fire tier1: ${text}`);
+  }
 });
 
 test('"quietly" clusters with another Tier 2 word flags tier2', () => {
