@@ -168,6 +168,22 @@ test('hashtag-stuff does not fire on prose with 2-3 hashtags', () => {
   assert.ok(!types.has('hashtag-stuff'), 'should not flag 2 hashtags as hashtag-stuff');
 });
 
+test('"load-bearing" (metaphor) flags tier1; construction nouns exempt', () => {
+  const metaphor = AIDetector.analyzeText('The load-bearing assumption here is that users will migrate voluntarily.');
+  const metaphorTypes = new Set(metaphor.issues.map((i) => i.type));
+  const metaphorHits = metaphor.issues.filter((i) => /load[- ]bearing/i.test(i.text));
+  assert.ok(metaphorTypes.has('tier1'), 'expected tier1 flag for metaphorical load-bearing');
+  assert.ok(metaphorHits.length > 0, 'expected a load-bearing tier1 hit');
+
+  const wall = AIDetector.analyzeText('Install a load-bearing wall between the kitchen and the garage.');
+  const wallHits = wall.issues.filter((i) => /load[- ]bearing/i.test(i.text));
+  assert.equal(wallHits.length, 0, 'load-bearing wall should not fire tier1');
+
+  const beam = AIDetector.analyzeText('The steel load-bearing beam spans 12 feet.');
+  const beamHits = beam.issues.filter((i) => /load[- ]bearing/i.test(i.text));
+  assert.equal(beamHits.length, 0, 'load-bearing beam should not fire tier1');
+});
+
 test('"quietly" clusters with another Tier 2 word flags tier2', () => {
   // "quietly" alone in a paragraph should not fire; paired with another
   // Tier 2 word in the same paragraph it should produce a tier2 issue.

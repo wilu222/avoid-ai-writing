@@ -4,6 +4,13 @@ All notable changes to this project are documented here.
 
 ---
 
+## [3.16.0] — 2026-07-15
+
+### Added
+- **"load-bearing" (metaphor) to Tier 1 word table** — LLMs, especially Claude, use "load-bearing" as a portable label for any dependency the argument rests on: "load-bearing assumption," "load-bearing claim," "load-bearing test," "load-bearing invariant." Added to both the SKILL.md Tier 1 table and the detector engine as a `TIER1_PHRASES` entry with a construction carve-out: literal uses before structural nouns (`wall`, `beam`, `column`, `joist`, `truss`, `member`, `footing`, `slab`) are exempt. Replacement: essential, critical, necessary — or say what breaks if you remove it. Sources: [Marek Šuppa — "Load-bearing" is becoming LLM speak](https://mareksuppa.com/til/load-bearing/); [Yaniv Bernstein (LinkedIn)](https://www.linkedin.com/posts/ybernstein_opus-47-has-dropped-a-new-ai-slop-writing-activity-7452530977479774208-kbQA); [Developers Digest](https://www.developersdigest.tech/blog/stop-claude-saying-load-bearing).
+
+---
+
 ## [3.15.0] — 2026-07-08
 
 ### Added

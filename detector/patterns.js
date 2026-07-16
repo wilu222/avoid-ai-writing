@@ -143,6 +143,7 @@ const AIDetector = (() => {
     { pattern: /\bascertain(?:s|ing|ed)?\b/gi, replace: 'find out, determine' },
     { pattern: /\bendeavou?r(?:s|ing|ed)?\b/gi, replace: 'effort, attempt, try' },
     { pattern: /\bunderscor(?:es|ing|ed)\b/gi, replace: 'highlights, shows' },
+    { pattern: /\bload[- ]bearing\b(?!\s+(?:walls?|beams?|columns?|joists?|truss(?:es)?|members?|footings?|slabs?)\b)/gi, replace: 'essential, critical, or say what breaks if you remove it' },
   ];
 
   // ─── Tier 2: Flag in clusters (2+ per paragraph) ──────────────────
